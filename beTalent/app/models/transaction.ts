@@ -1,10 +1,11 @@
-import { BaseModel, beforeSave, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
-import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, beforeSave, belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import { DateTime } from 'luxon'
 import { randomUUID } from 'node:crypto'
 import Client from './client.js'
 import Gateway from './gateway.js'
 import Product from './product.js'
+import Refund from './refund.js'
 
 export default class Transaction extends BaseModel {
   public static selfAssignPrimaryKey = true
@@ -47,6 +48,9 @@ export default class Transaction extends BaseModel {
     pivotColumns: ['quantity'],
   })
   declare products: ManyToMany<typeof Product>
+
+  @hasMany(() => Refund)
+  declare refunds: HasMany<typeof Refund>
 
   @beforeSave()
   public static async assignUuid(transaction: Transaction) {
