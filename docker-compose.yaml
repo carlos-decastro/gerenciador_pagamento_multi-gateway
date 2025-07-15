@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gerenciador_pagamentos
+      MYSQL_USER: gerenciador_pagamentos
+      MYSQL_PASSWORD: "123456@@"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  gateways-mock:
+    image: matheusprotzen/gateways-mock
+    container_name: gateways-mock
+    restart: always
+    ports:
+      - "3001:3001"
+      - "3002:3002"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
