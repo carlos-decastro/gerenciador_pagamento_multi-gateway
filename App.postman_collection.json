@@ -1,0 +1,1294 @@
+{
+	"info": {
+		"_postman_id": "b436f2d1-b3cd-4220-ad98-7144c9fd7e54",
+		"name": "App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21021256"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "PUBLIC - Health Check",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUBLIC - Login - ADMIN",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@betalent.com\",\n    \"password\": \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUBLIC - Login - MANAGER",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"manager@betalent.com\",\n    \"password\": \"manager123\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUBLIC - Login - FINANCE",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"finance@betalent.com\",\n    \"password\": \"finance123\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUBLIC - Login - USER",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@betalent.com\",\n    \"password\": \"user123\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_Mg.cjlPT01WTi1DV1ZwVVExeG9qUVVtWTVyUTNYMThHRGdaRW91WnRsRzI3MDU4NDY5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Get From User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NjE.dFpRQ1otYktsYlBjNTJrOWJUTXdSVHEzQnJGX2hRdzZRTHFmX3lMcTM0NjMzNzQzMTY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/api/auth/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "PRIVATE - List - ADMIN/MANAGER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NjM.UVdGQjFvUGhFaUVRenctWXZkNnhZeUZfQV9tUUJRcm9rQmpybU1mRzcwNDIyMDEwMQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "at_NTU.OFJZNGh0bmlxNEEzNEUwWW9xTWNQWEZBd3Qzeno5UFdRbmY4RW9CRjExMjM5MDU4MTE",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Get by Id - ADMIN/MANAGER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NjU.T1d4SmJfMVROb1dSVWc0TDRFOEV0X0xlMjhxZW5wR3dLTFR5NUxoZzMxMzA5NzAyNDk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "at_NTU.OFJZNGh0bmlxNEEzNEUwWW9xTWNQWEZBd3Qzeno5UFdRbmY4RW9CRjExMjM5MDU4MTE",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/users/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Create - ADMIN/MANAGER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NjU.T1d4SmJfMVROb1dSVWc0TDRFOEV0X0xlMjhxZW5wR3dLTFR5NUxoZzMxMzA5NzAyNDk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$ADMIN_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Novo Usuário\",\n    \"email\": \"novo@betalent.com\",\n    \"password\": \"senha123\",\n    \"role\": \"USER\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Update - ADMIN/MANAGER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NjU.T1d4SmJfMVROb1dSVWc0TDRFOEV0X0xlMjhxZW5wR3dLTFR5NUxoZzMxMzA5NzAyNDk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$ADMIN_TOKEN",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Nome Atualizado\",\n    \"email\": \"atualizado@betalent.com\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/users/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"users",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Delete - ADMIN",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_Njg.V1RlVjhRV3EyakNoSjVzZGYtMUd5T0RHWUhqSF96S1lyc1ZpU0pMWDIxMjU2Mzk5MTc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$ADMIN_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/users/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"users",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchases",
+			"item": [
+				{
+					"name": "PUBLIC - Purchases",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"client\": {\n      \"name\": \"João Silva\",\n      \"email\": \"joao@email.com\"\n    },\n    \"payment\": {\n      \"cardNumber\": \"4111111111111111\",\n      \"cvv\": \"123\"\n    },\n    \"items\": [\n      {\n        \"productId\": \"3128a97c-a6ad-4751-9a99-f5052db87710\",\n        \"quantity\": 2\n      }\n    ]\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/purchases",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"purchases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NzA.RXFZQ0JCaEpjWnI3VmFwME5oS0JLbWo4UVVzdHQ3QmZ1SWpYOXlfRzIyNDQ0Mjk0NTE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$USER_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/purchases",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"purchases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NzA.RXFZQ0JCaEpjWnI3VmFwME5oS0JLbWo4UVVzdHQ3QmZ1SWpYOXlfRzIyNDQ0Mjk0NTE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$USER_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/purchases/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"purchases",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "525d7dc1-aab6-44be-bbe6-0bd0455b8c0a"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Gateways",
+			"item": [
+				{
+					"name": "PRIVATE - List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NzA.RXFZQ0JCaEpjWnI3VmFwME5oS0JLbWo4UVVzdHQ3QmZ1SWpYOXlfRzIyNDQ0Mjk0NTE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$USER_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/gateways",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"gateways"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NzA.RXFZQ0JCaEpjWnI3VmFwME5oS0JLbWo4UVVzdHQ3QmZ1SWpYOXlfRzIyNDQ0Mjk0NTE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$USER_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/gateways/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"gateways",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "16571814-e0bd-4805-a91e-b50bc3d855e5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Create - ADMIN/MANAGER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NzI.Vm1IYU9zNW5xZ3BfQk5LblNtOVhQOFFOQTI4ajk5SzZwZUVyMXp6ZzQwNDI3MTA2NA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$ADMIN_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Novo Gateway12\",\n    \"priority\": 4\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/gateways",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"gateways"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Enable/Disabled - ADMIN/MANAGER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NzM.NWJKdXNsRmdaTFF3S19CcGRpZ01sTEYxZkRudWJWNWVMQWxuTmdCeDEyMzQ4MjM0MDg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$ADMIN_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"isActive\": false\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/gateways/:id/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"gateways",
+								":id",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "35eac458-152e-422a-a472-6ee6ba335930"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Change Priority - ADMIN/MANAGER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NzM.NWJKdXNsRmdaTFF3S19CcGRpZ01sTEYxZkRudWJWNWVMQWxuTmdCeDEyMzQ4MjM0MDg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$ADMIN_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"priority\": 5\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/gateways/:id/priority",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"gateways",
+								":id",
+								"priority"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "35eac458-152e-422a-a472-6ee6ba335930"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "PRIVATE - List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NzQ.QTZaRVNCWllNcElCNE9mdjAtejRqMTNiUURaWlN6LV9tNThqQ2toZTIxMjA4ODUwOTE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$USER_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NzQ.QTZaRVNCWllNcElCNE9mdjAtejRqMTNiUURaWlN6LV9tNThqQ2toZTIxMjA4ODUwOTE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$USER_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/products/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3128a97c-a6ad-4751-9a99-f5052db87710"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Create - ADMIN/MANAGER/FINANCE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NzY.N2JvSDZLZGJLdEx2YlZreHZ1TEtPaWFnX3FLTmN4LTRjdVJ6LUtlSDg0NzI1Mjg5OQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$FINANCE_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Notebook Dell\",\n    \"description\": \"Notebook Dell Inspiron 15\",\n    \"amount\": 2500.00,\n    \"stock\": 10\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Update - ADMIN/MANAGER/FINANCE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_NzY.N2JvSDZLZGJLdEx2YlZreHZ1TEtPaWFnX3FLTmN4LTRjdVJ6LUtlSDg0NzI1Mjg5OQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$FINANCE_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Notebook Dell Atualizado\",\n    \"price\": 2300.00,\n    \"stock\": 15\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/products/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "051c5ccc-40ee-4849-bde4-86761fb417dd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Delete - ADMIN/MANAGER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_Nzc.bGNZSm01VnFkNnZkZkp1SEhMOEZ2RGhDNmQyUVFmRTE5eTJ2S1BPRTEzNzU4NDM3MjA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$ADMIN_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/products/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "051c5ccc-40ee-4849-bde4-86761fb417dd"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "PRIVATE - List - ADMIN/MANAGER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_Nzc.bGNZSm01VnFkNnZkZkp1SEhMOEZ2RGhDNmQyUVFmRTE5eTJ2S1BPRTEzNzU4NDM3MjA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$ADMIN_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/clients?page=1&limit=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Get - ADMIN/MANAGER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_Nzc.bGNZSm01VnFkNnZkZkp1SEhMOEZ2RGhDNmQyUVFmRTE5eTJ2S1BPRTEzNzU4NDM3MjA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$USER_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/clients/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"clients",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65808d91-d5ed-4a47-9250-a07f26fcf923"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Refunds",
+			"item": [
+				{
+					"name": "PRIVATE - List - ADMIN/MANAGER/FINANCE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_Nzc.bGNZSm01VnFkNnZkZkp1SEhMOEZ2RGhDNmQyUVFmRTE5eTJ2S1BPRTEzNzU4NDM3MjA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$FINANCE_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/refunds?page=1&limit=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"refunds"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Get - ADMIN/MANAGER/FINANCE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_Nzc.bGNZSm01VnFkNnZkZkp1SEhMOEZ2RGhDNmQyUVFmRTE5eTJ2S1BPRTEzNzU4NDM3MjA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$FINANCE_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/api/refunds/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"refunds",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "0e539d4d-5f42-4c04-bc1f-1d4e1119fbb6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRIVATE - Refund - ADMIN/MANAGER/FINANCE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "oat_Nzc.bGNZSm01VnFkNnZkZkp1SEhMOEZ2RGhDNmQyUVFmRTE5eTJ2S1BPRTEzNzU4NDM3MjA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "$FINANCE_TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transactionId\": \"3e9daf55-019d-4404-bb7c-c9805b4e87e4\",\n    \"reason\": \"7 dias uteis da compra\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/api/refunds",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"refunds"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

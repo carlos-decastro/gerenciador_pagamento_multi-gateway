@@ -5,13 +5,14 @@ import {
   RefundData,
   RefundResult,
 } from '#interfaces/gateway_processor_interface'
+import env from '#start/env'
 import axios from 'axios'
 
 export default class Gateway1Processor implements GatewayProcessorInterface {
-  private readonly baseUrl = 'http://localhost:3001'
+  private readonly baseUrl = env.get('GATEWAY1_URL')
   private readonly credentials = {
-    email: 'dev@betalent.tech',
-    token: 'FEC9BB078BF338F464F96B48089EB498',
+    email: env.get('GATEWAY1_EMAIL'),
+    token: env.get('GATEWAY1_TOKEN'),
   }
 
   getName(): string {

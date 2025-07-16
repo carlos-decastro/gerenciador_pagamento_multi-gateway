@@ -34,5 +34,19 @@ export default await Env.create(new URL('../', import.meta.url), {
   | Variables for configuring authentication
   |----------------------------------------------------------
   */
-  TOKEN_EXPIRATION_TIME: Env.schema.string.optional({ default: '7 days' }),
+  TOKEN_EXPIRATION_TIME: Env.schema.string.optional(),
+
+  /*
+  |----------------------------------------------------------
+  | Variables for Gateways
+  |----------------------------------------------------------
+  */
+
+  GATEWAY1_URL: Env.schema.string(),
+  GATEWAY1_EMAIL: Env.schema.string(),
+  GATEWAY1_TOKEN: Env.schema.string(),
+
+  GATEWAY2_URL: Env.schema.string(),
+  GATEWAY2_TOKEN: Env.schema.string(),
+  GATEWAY2_SECRET: Env.schema.string(),
 })

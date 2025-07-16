@@ -5,13 +5,14 @@ import {
   RefundData,
   RefundResult,
 } from '#interfaces/gateway_processor_interface'
+import env from '#start/env'
 import axios from 'axios'
 
 export default class Gateway2Processor implements GatewayProcessorInterface {
-  private readonly baseUrl = 'http://localhost:3002'
+  private readonly baseUrl = env.get('GATEWAY2_URL')
   private readonly headers = {
-    'Gateway-Auth-Token': 'tk_f2198cc671b5289fa856',
-    'Gateway-Auth-Secret': '3d15e8ed6131446ea7e3456728b1211f',
+    'Gateway-Auth-Token': env.get('GATEWAY2_TOKEN'),
+    'Gateway-Auth-Secret': env.get('GATEWAY2_SECRET'),
     'Content-Type': 'application/json',
   }
 
