@@ -8,12 +8,9 @@ import {
 } from '#validators/refund_validator'
 import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
+import { DateTime } from 'luxon'
 
 export default class RefundController {
-  /**
-   * Criar um reembolso
-   * Acesso: ADMIN, MANAGER, FINANCE
-   */
   async store({ request, response, auth }: HttpContext) {
     const trx = await db.transaction()
 
@@ -23,7 +20,11 @@ export default class RefundController {
       const user = auth.user!
       const userEmail = user.email
 
-      if (data.refundType === 'partial' && !data.amount) {
+      // Define valores padrão
+      const refundType = data.refundType || 'total'
+
+      // Para reembolso parcial, amount é obrigatório
+      if (refundType === 'partial' && !data.amount) {
         return response.status(422).json({
           error: 'Valor é obrigatório para reembolso parcial',
         })
@@ -31,8 +32,8 @@ export default class RefundController {
 
       const refundResult = await RefundService.processRefund({
         transactionId: data.transactionId,
-        amount: data.amount || 0,
-        refundType: data.refundType,
+        amount: data.amount,
+        refundType: refundType,
         reason: data.reason,
         userEmail: userEmail,
       })
@@ -99,50 +100,48 @@ export default class RefundController {
     }
   }
 
-  /**
-   * Listar reembolsos
-   * Acesso: ADMIN, MANAGER, FINANCE
-   */
   async index({ request, response }: HttpContext) {
     try {
       const filters = await request.validateUsing(refundIndexValidator)
 
       const refunds = await RefundService.listRefunds(filters)
 
+      const refundsData = refunds.serialize().data.map((refund) => ({
+        id: refund.id,
+        amount: refund.amount,
+        originalAmount: refund.originalAmount,
+        refundType: refund.refundType,
+        status: refund.status,
+        externalRefundId: refund.externalRefundId,
+        reason: refund.reason,
+        userEmail: refund.userEmail,
+        requestedAt: refund.requestedAt,
+        processedAt: refund.processedAt,
+        transaction: {
+          id: refund.transaction.id,
+          amount: refund.transaction.amount,
+          status: refund.transaction.status,
+          externalId: refund.transaction.externalId,
+          client: {
+            id: refund.transaction.client.id,
+            name: refund.transaction.client.name,
+            email: refund.transaction.client.email,
+          },
+          gateway: {
+            id: refund.transaction.gateway.id,
+            name: refund.transaction.gateway.name,
+          },
+        },
+        gateway: {
+          id: refund.gateway.id,
+          name: refund.gateway.name,
+        },
+      }))
+
       return response.json({
         message: 'Reembolsos listados com sucesso',
         data: {
-          refunds: refunds.map((refund) => ({
-            id: refund.id,
-            amount: refund.amount,
-            originalAmount: refund.originalAmount,
-            refundType: refund.refundType,
-            status: refund.status,
-            externalRefundId: refund.externalRefundId,
-            reason: refund.reason,
-            userEmail: refund.userEmail,
-            requestedAt: refund.requestedAt,
-            processedAt: refund.processedAt,
-            transaction: {
-              id: refund.transaction.id,
-              amount: refund.transaction.amount,
-              status: refund.transaction.status,
-              externalId: refund.transaction.externalId,
-              client: {
-                id: refund.transaction.client.id,
-                name: refund.transaction.client.name,
-                email: refund.transaction.client.email,
-              },
-              gateway: {
-                id: refund.transaction.gateway.id,
-                name: refund.transaction.gateway.name,
-              },
-            },
-            gateway: {
-              id: refund.gateway.id,
-              name: refund.gateway.name,
-            },
-          })),
+          refunds: refundsData,
           meta: refunds.getMeta(),
         },
       })
@@ -162,10 +161,6 @@ export default class RefundController {
     }
   }
 
-  /**
-   * Buscar reembolso por ID
-   * Acesso: ADMIN, MANAGER, FINANCE
-   */
   async show({ params, response }: HttpContext) {
     try {
       const { id } = await refundParamsValidator.validate(params)
@@ -241,10 +236,6 @@ export default class RefundController {
     }
   }
 
-  /**
-   * Atualizar status de reembolso (para uso interno/administrativo)
-   * Acesso: Apenas ADMIN
-   */
   async updateStatus({ params, request, response }: HttpContext) {
     try {
       const { id } = await refundParamsValidator.validate(params)
@@ -270,7 +261,7 @@ export default class RefundController {
       }
 
       if (['completed', 'failed'].includes(data.status) && !refund.processedAt) {
-        refund.processedAt = new Date()
+        refund.processedAt = DateTime.now()
       }
 
       await refund.save()
@@ -301,10 +292,6 @@ export default class RefundController {
     }
   }
 
-  /**
-   * Listar reembolsos de uma transação específica
-   * Acesso: ADMIN, MANAGER, FINANCE
-   */
   async getByTransaction({ params, response }: HttpContext) {
     try {
       const { transactionId } = params

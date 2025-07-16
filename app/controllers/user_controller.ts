@@ -8,10 +8,6 @@ import type { HttpContext } from '@adonisjs/core/http'
 import hash from '@adonisjs/core/services/hash'
 
 export default class UserController {
-  /**
-   * Listar todos os usuários
-   * Acesso: ADMIN, MANAGER
-   */
   async index({ response, request }: HttpContext) {
     try {
       const page = request.input('page', 1)
@@ -36,10 +32,6 @@ export default class UserController {
     }
   }
 
-  /**
-   * Buscar usuário por ID
-   * Acesso: ADMIN, MANAGER, próprio usuário
-   */
   async show({ params, response, auth }: HttpContext) {
     try {
       const { id } = await userParamsValidator.validate(params)
@@ -80,10 +72,6 @@ export default class UserController {
     }
   }
 
-  /**
-   * Criar novo usuário
-   * Acesso: ADMIN, MANAGER
-   */
   async store({ request, response, auth }: HttpContext) {
     try {
       const currentUser = auth.getUserOrFail()
@@ -130,10 +118,6 @@ export default class UserController {
     }
   }
 
-  /**
-   * Atualizar usuário
-   * Acesso: ADMIN, MANAGER, próprio usuário (limitado)
-   */
   async update({ params, request, response, auth }: HttpContext) {
     try {
       const { id } = await userParamsValidator.validate(params)
@@ -201,10 +185,6 @@ export default class UserController {
     }
   }
 
-  /**
-   * Deletar usuário
-   * Acesso: ADMIN apenas
-   */
   async destroy({ params, response, auth }: HttpContext) {
     try {
       const { id } = await userParamsValidator.validate(params)

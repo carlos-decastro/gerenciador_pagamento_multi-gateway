@@ -8,10 +8,6 @@ import {
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class ProductController {
-  /**
-   * Listar todos os produtos
-   * Acesso: Todos os usuários autenticados
-   */
   async index({ request, response }: HttpContext) {
     try {
       const {
@@ -50,10 +46,6 @@ export default class ProductController {
     }
   }
 
-  /**
-   * Buscar produto por ID
-   * Acesso: Todos os usuários autenticados
-   */
   async show({ params, response }: HttpContext) {
     try {
       const { id } = await productParamsValidator.validate(params)
@@ -84,10 +76,6 @@ export default class ProductController {
     }
   }
 
-  /**
-   * Criar novo produto
-   * Acesso: ADMIN, MANAGER, FINANCE
-   */
   async store({ request, response }: HttpContext) {
     try {
       const data = await request.validateUsing(createProductValidator)
@@ -121,10 +109,6 @@ export default class ProductController {
     }
   }
 
-  /**
-   * Atualizar produto
-   * Acesso: ADMIN, MANAGER, FINANCE
-   */
   async update({ params, request, response }: HttpContext) {
     try {
       const { id } = await productParamsValidator.validate(params)
@@ -166,10 +150,6 @@ export default class ProductController {
     }
   }
 
-  /**
-   * Deletar produto
-   * Acesso: ADMIN, MANAGER
-   */
   async destroy({ params, response }: HttpContext) {
     try {
       const { id } = await productParamsValidator.validate(params)
@@ -208,10 +188,6 @@ export default class ProductController {
     }
   }
 
-  /**
-   * Buscar produtos por nome (busca avançada)
-   * Acesso: Todos os usuários autenticados
-   */
   async search({ request, response }: HttpContext) {
     try {
       const { search } = request.only(['search'])

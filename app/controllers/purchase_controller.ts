@@ -9,9 +9,6 @@ import type { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
 
 export default class PurchaseController {
-  /**
-   * Realizar uma compra (Público)
-   */
   async store({ request, response }: HttpContext) {
     const trx = await db.transaction()
 
@@ -146,9 +143,6 @@ export default class PurchaseController {
     }
   }
 
-  /**
-   * Buscar uma transação por ID
-   */
   async show({ params, response }: HttpContext) {
     try {
       const { id } = await purchaseParamsValidator.validate(params)
@@ -207,9 +201,6 @@ export default class PurchaseController {
     }
   }
 
-  /**
-   * Listar todas as transações
-   */
   async index({ response }: HttpContext) {
     try {
       const transactions = await Transaction.query()

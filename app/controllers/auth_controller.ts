@@ -5,9 +5,6 @@ import type { HttpContext } from '@adonisjs/core/http'
 import hash from '@adonisjs/core/services/hash'
 
 export default class AuthController {
-  /**
-   * Login do usuário - Rota pública
-   */
   async login({ request, response }: HttpContext) {
     try {
       const { email, password } = await request.validateUsing(loginValidator)
@@ -59,9 +56,6 @@ export default class AuthController {
     }
   }
 
-  /**
-   * Logout do usuário - Rota protegida
-   */
   async logout({ auth, response }: HttpContext) {
     try {
       const user = auth.getUserOrFail()
@@ -81,9 +75,6 @@ export default class AuthController {
     }
   }
 
-  /**
-   * Obter informações do usuário autenticado - Rota protegida
-   */
   async me({ auth, response }: HttpContext) {
     try {
       const user = auth.getUserOrFail()

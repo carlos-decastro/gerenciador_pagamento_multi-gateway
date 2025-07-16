@@ -4,10 +4,6 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { clientParamsValidator } from '../validators/client_validator.js'
 
 export default class ClientController {
-  /**
-   * Buscar detalhes do cliente e todas suas compras
-   * Acesso: Todos os usuários autenticados
-   */
   async show({ params, response }: HttpContext) {
     try {
       const { id } = await clientParamsValidator.validate(params)
@@ -87,10 +83,6 @@ export default class ClientController {
     }
   }
 
-  /**
-   * Listar todos os clientes
-   * Acesso: ADMIN, MANAGER
-   */
   async index({ response, request }: HttpContext) {
     try {
       const page = request.input('page', 1)

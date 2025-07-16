@@ -7,7 +7,7 @@ export const createRefundValidator = vine.compile(
   vine.object({
     transactionId: vine.string().uuid(),
     amount: vine.number().positive().optional(),
-    refundType: vine.enum(['total', 'partial']),
+    refundType: vine.enum(['total', 'partial']).optional(),
     reason: vine.string().minLength(10).maxLength(500).optional(),
     notes: vine.string().maxLength(1000).optional(),
   })

@@ -8,9 +8,6 @@ import {
 } from '../validators/gateway.js'
 
 export default class GatewayController {
-  /**
-   * Listar todos os gateways
-   */
   async index({ response }: HttpContext) {
     try {
       const gateways = await Gateway.query().orderBy('priority', 'desc')
@@ -26,9 +23,6 @@ export default class GatewayController {
     }
   }
 
-  /**
-   * Criar um novo gateway
-   */
   async store({ request, response }: HttpContext) {
     try {
       const data = await request.validateUsing(createGatewayValidator)
@@ -82,9 +76,6 @@ export default class GatewayController {
     }
   }
 
-  /**
-   * Buscar gateway por ID
-   */
   async show({ params, response }: HttpContext) {
     try {
       const { id } = await gatewayParamsValidator.validate(params)
@@ -108,9 +99,6 @@ export default class GatewayController {
     }
   }
 
-  /**
-   * Ativar ou desativar um gateway
-   */
   async updateStatus({ params, request, response }: HttpContext) {
     try {
       const { id } = await gatewayParamsValidator.validate(params)
@@ -144,9 +132,6 @@ export default class GatewayController {
     }
   }
 
-  /**
-   * Alterar a prioridade de um gateway
-   */
   async updatePriority({ params, request, response }: HttpContext) {
     try {
       const { id } = await gatewayParamsValidator.validate(params)
