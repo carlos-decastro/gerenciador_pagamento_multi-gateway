@@ -89,6 +89,7 @@ Importe o arquivo `App.postman_collection.json` no Postman para ter acesso a tod
 # Health Check
 curl http://localhost:3333/
 # Resposta: {"hello":"world"}
+```
 
 ## 👥 Usuários Padrão
 
