@@ -85,7 +85,7 @@ Importe o arquivo `App.postman_collection.json` no Postman para ter acesso a tod
 
 ### 🔍 Endpoints de Teste
 
-````bash
+```bash
 # Health Check
 curl http://localhost:3333/
 # Resposta: {"hello":"world"}
@@ -95,12 +95,12 @@ curl http://localhost:3333/
 
 O sistema vem com usuários pré-cadastrados:
 
-| Email | Senha | Role | Descrição |
-|-------|-------|------|----------|
-| `admin@betalent.com` | `admin123` | `admin` | Administrador completo |
-| `manager@betalent.com` | `manager123` | `manager` | Segunda permissão de maior acesso |
+| Email                  | Senha        | Role      | Descrição                          |
+| ---------------------- | ------------ | --------- | ---------------------------------- |
+| `admin@betalent.com`   | `admin123`   | `admin`   | Administrador completo             |
+| `manager@betalent.com` | `manager123` | `manager` | Segunda permissão de maior acesso  |
 | `finance@betalent.com` | `finance123` | `finance` | Terceira permissão de maior acesso |
-| `user@betalent.com` | `user123` | `user` | Usuário padrão |
+| `user@betalent.com`    | `user123`    | `user`    | Usuário padrão                     |
 
 ## 🗄️ Banco de Dados
 
@@ -121,7 +121,7 @@ Todas as migrations são executadas automaticamente no Docker. Para execução m
 ```bash
 node ace migration:run
 node ace db:seed
-````
+```
 
 ## 🔒 Segurança
 
