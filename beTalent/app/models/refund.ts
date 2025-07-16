@@ -1,9 +1,9 @@
-import { DateTime } from 'luxon'
 import { BaseModel, beforeSave, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { DateTime } from 'luxon'
 import { randomUUID } from 'node:crypto'
-import Transaction from './transaction.js'
 import Gateway from './gateway.js'
+import Transaction from './transaction.js'
 
 export default class Refund extends BaseModel {
   public static selfAssignPrimaryKey = true
@@ -55,7 +55,6 @@ export default class Refund extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  // Relacionamentos
   @belongsTo(() => Transaction)
   declare transaction: BelongsTo<typeof Transaction>
 

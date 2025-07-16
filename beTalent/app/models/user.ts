@@ -5,7 +5,6 @@ import hash from '@adonisjs/core/services/hash'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
-// Enum para roles de usuário
 export enum UserRole {
   ADMIN = 'ADMIN',
   MANAGER = 'MANAGER',

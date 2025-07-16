@@ -3,10 +3,8 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class ProductSeeder extends BaseSeeder {
   async run() {
-    // Limpar produtos existentes
     await Product.query().delete()
 
-    // Criar novos produtos
     await Product.createMany([
       {
         name: 'Produto 1',
@@ -21,7 +19,5 @@ export default class ProductSeeder extends BaseSeeder {
         amount: 75.0,
       },
     ])
-
-    console.log('Produtos criados com sucesso!')
   }
 }

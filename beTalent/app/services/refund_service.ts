@@ -27,7 +27,6 @@ export default class RefundService {
    */
   static async processRefund(data: RefundRequest): Promise<RefundResponse> {
     try {
-      // Buscar a transação original
       const transaction = await Transaction.query()
         .where('id', data.transactionId)
         .preload('gateway')
@@ -42,7 +41,6 @@ export default class RefundService {
         }
       }
 
-      // Verificar se a transação está completa
       if (transaction.status !== 'completed') {
         return {
           success: false,
@@ -51,19 +49,18 @@ export default class RefundService {
         }
       }
 
-      // Calcular valor total já reembolsado
       const totalRefunded = transaction.refunds
-        .filter(refund => refund.status === 'completed')
-        .reduce((sum, refund) => sum + parseFloat(refund.amount.toString()), 0)
+        .filter((refund) => refund.status === 'completed')
+        .reduce((sum, refund) => sum + Number.parseFloat(refund.amount.toString()), 0)
 
-      const availableAmount = parseFloat(transaction.amount.toString()) - totalRefunded
+      const availableAmount = Number.parseFloat(transaction.amount.toString()) - totalRefunded
 
-      // Validar valor do reembolso
       if (data.refundType === 'total' && totalRefunded > 0) {
         return {
           success: false,
           status: 'failed',
-          error: 'Transação já possui reembolsos parciais. Use reembolso parcial para o valor restante.',
+          error:
+            'Transação já possui reembolsos parciais. Use reembolso parcial para o valor restante.',
         }
       }
 
@@ -85,30 +82,27 @@ export default class RefundService {
         }
       }
 
-      // Criar registro de reembolso
       const refund = await Refund.create({
         transactionId: transaction.id,
         gatewayId: transaction.gateway.id,
         userEmail: data.userEmail,
         amount: refundAmount,
-        originalAmount: parseFloat(transaction.amount.toString()),
+        originalAmount: Number.parseFloat(transaction.amount.toString()),
         refundType: data.refundType,
         reason: data.reason,
         status: 'pending',
         requestedAt: DateTime.now(),
       })
 
-      // Processar reembolso no gateway
       const gatewayResult = await this.callGatewayRefund(
         transaction.gateway,
         transaction.externalId,
         refundAmount
       )
 
-      // Atualizar status do reembolso
       refund.status = gatewayResult.success ? 'completed' : 'failed'
-      refund.externalRefundId = gatewayResult.externalRefundId
-      refund.gatewayResponse = gatewayResult.response
+      refund.externalRefundId = gatewayResult.externalRefundId || null
+      refund.gatewayResponse = gatewayResult.response || null
       refund.processedAt = DateTime.now()
       await refund.save()
 
@@ -177,7 +171,6 @@ export default class RefundService {
     error?: string
   }> {
     try {
-      // Fazer login no Gateway 1
       const loginResponse = await fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: {
@@ -199,7 +192,6 @@ export default class RefundService {
       const loginData = await loginResponse.json()
       const token = loginData.token
 
-      // Processar reembolso
       const refundResponse = await fetch('http://localhost:3001/refund', {
         method: 'POST',
         headers: {

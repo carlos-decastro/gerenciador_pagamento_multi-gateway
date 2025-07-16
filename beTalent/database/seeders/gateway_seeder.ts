@@ -3,10 +3,8 @@ import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class extends BaseSeeder {
   async run() {
-    // Limpar gateways existentes
     await Gateway.query().delete()
 
-    // Criar apenas os dois gateways necessários
     await Gateway.createMany([
       {
         name: 'Gateway 1',

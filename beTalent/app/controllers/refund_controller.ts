@@ -18,21 +18,17 @@ export default class RefundController {
     const trx = await db.transaction()
 
     try {
-      // Validar dados da requisição
       const data = await request.validateUsing(createRefundValidator)
 
-      // Obter email do usuário autenticado
       const user = auth.user!
       const userEmail = user.email
 
-      // Validar valor para reembolso parcial
       if (data.refundType === 'partial' && !data.amount) {
         return response.status(422).json({
           error: 'Valor é obrigatório para reembolso parcial',
         })
       }
 
-      // Processar reembolso
       const refundResult = await RefundService.processRefund({
         transactionId: data.transactionId,
         amount: data.amount || 0,
@@ -51,7 +47,6 @@ export default class RefundController {
 
       await trx.commit()
 
-      // Buscar reembolso criado com relacionamentos
       const refund = await RefundService.getRefundById(refundResult.refundId!)
 
       return response.status(201).json({
@@ -263,7 +258,6 @@ export default class RefundController {
         })
       }
 
-      // Atualizar campos
       refund.status = data.status
       if (data.gatewayResponse) {
         refund.gatewayResponse = data.gatewayResponse
@@ -275,7 +269,6 @@ export default class RefundController {
         refund.notes = data.notes
       }
 
-      // Atualizar data de processamento se status mudou para completed ou failed
       if (['completed', 'failed'].includes(data.status) && !refund.processedAt) {
         refund.processedAt = new Date()
       }

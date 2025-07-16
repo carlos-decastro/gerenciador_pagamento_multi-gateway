@@ -33,7 +33,6 @@ export default class GatewayController {
     try {
       const data = await request.validateUsing(createGatewayValidator)
 
-      // Verificar se já existe um gateway com o mesmo nome
       const existingGateway = await Gateway.findBy('name', data.name)
       if (existingGateway) {
         return response.status(409).json({
@@ -45,7 +44,6 @@ export default class GatewayController {
         })
       }
 
-      // Verificar se já existe um gateway com a mesma prioridade (se especificada)
       if (data.priority !== undefined) {
         const existingPriority = await Gateway.findBy('priority', data.priority)
         if (existingPriority) {
@@ -161,7 +159,6 @@ export default class GatewayController {
         })
       }
 
-      // Verificar se já existe um gateway com a mesma prioridade
       const existingGateway = await Gateway.query()
         .where('priority', priority)
         .whereNot('id', id)

@@ -11,7 +11,7 @@ import { roleMiddleware } from '#middleware/role_middleware'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 const AuthController = () => import('../app/controllers/auth_controller.js')
-const UserController = () => import('#controllers/user_controller')
+const UserController = () => import('../app/controllers/user_controller.js')
 const ProductController = () => import('#controllers/product_controller')
 const GatewayController = () => import('#controllers/gateway_controller')
 const PurchaseController = () => import('#controllers/purchase_controller')

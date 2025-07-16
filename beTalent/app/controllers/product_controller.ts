@@ -24,12 +24,10 @@ export default class ProductController {
 
       const query = Product.query()
 
-      // Filtro de busca por nome
       if (search) {
         query.where('name', 'LIKE', `%${search}%`)
       }
 
-      // Ordenação
       query.orderBy(sortBy, sortOrder)
 
       const products = await query.paginate(page, limit)
@@ -111,7 +109,6 @@ export default class ProductController {
         })
       }
 
-      // Verificar se é erro de duplicação (nome único)
       if (error.code === 'ER_DUP_ENTRY' || error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
         return response.status(409).json({
           error: 'Já existe um produto com este nome',
@@ -140,7 +137,6 @@ export default class ProductController {
         })
       }
 
-      // Atualizar apenas os campos fornecidos
       if (data.name !== undefined) product.name = data.name
       if (data.amount !== undefined) product.amount = data.amount
 
@@ -158,7 +154,6 @@ export default class ProductController {
         })
       }
 
-      // Verificar se é erro de duplicação (nome único)
       if (error.code === 'ER_DUP_ENTRY' || error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
         return response.status(409).json({
           error: 'Já existe um produto com este nome',
@@ -186,7 +181,6 @@ export default class ProductController {
         })
       }
 
-      // Verificar se o produto está sendo usado em transações
       await product.load('transactions')
       if (product.transactions.length > 0) {
         return response.status(400).json({

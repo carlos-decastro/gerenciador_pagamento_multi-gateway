@@ -25,25 +25,21 @@ export default class PurchaseCalculationService {
       throw new Error('Lista de produtos não pode estar vazia')
     }
 
-    // Validar se todas as quantidades são positivas
     for (const item of items) {
       if (item.quantity <= 0) {
         throw new Error(`Quantidade deve ser maior que zero para o produto ${item.productId}`)
       }
     }
 
-    // Buscar todos os produtos
     const productIds = items.map((item) => item.productId)
     const products = await Product.query().whereIn('id', productIds)
 
-    // Verificar se todos os produtos existem
     if (products.length !== productIds.length) {
       const foundIds = products.map((p) => p.id)
       const missingIds = productIds.filter((id) => !foundIds.includes(id))
       throw new Error(`Produtos não encontrados: ${missingIds.join(', ')}`)
     }
 
-    // Calcular o valor de cada item e o total
     const calculatedItems = []
     let totalAmount = 0
 

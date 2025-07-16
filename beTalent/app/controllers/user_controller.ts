@@ -15,19 +15,23 @@ export default class UserController {
   async index({ response, request }: HttpContext) {
     try {
       const page = request.input('page', 1)
-      const limit = request.input('limit', 10)
+      const limit = Math.min(request.input('limit', 10), 100)
 
       const users = await User.query()
         .select('id', 'fullName', 'email', 'role', 'createdAt', 'updatedAt')
+        .orderBy('createdAt', 'desc')
         .paginate(page, limit)
 
-      return response.json({
+      const responseData = {
         message: 'Usuários listados com sucesso',
         data: users,
-      })
+      }
+
+      return response.json(responseData)
     } catch (error) {
       return response.status(500).json({
         error: 'Erro interno do servidor',
+        details: error.message,
       })
     }
   }
@@ -41,7 +45,6 @@ export default class UserController {
       const { id } = await userParamsValidator.validate(params)
       const currentUser = auth.getUserOrFail()
 
-      // Verificar se é o próprio usuário ou tem permissão
       if (currentUser.id !== id && !['ADMIN', 'MANAGER'].includes(currentUser.role)) {
         return response.status(403).json({
           error: 'Acesso negado',
@@ -86,17 +89,14 @@ export default class UserController {
       const currentUser = auth.getUserOrFail()
       const data = await request.validateUsing(createUserValidator)
 
-      // Definir role padrão se não fornecida
       const role = data.role || UserRole.USER
 
-      // Verificar se pode criar usuário com a role especificada
       if (currentUser.role === 'MANAGER' && ['ADMIN', 'MANAGER'].includes(role)) {
         return response.status(403).json({
           error: 'Managers não podem criar usuários ADMIN ou MANAGER',
         })
       }
 
-      // Hash da senha
       const hashedPassword = await hash.make(data.password)
 
       const user = await User.create({
@@ -147,7 +147,6 @@ export default class UserController {
         })
       }
 
-      // Verificar permissões
       const isOwnProfile = currentUser.id === user.id
       const canManageUsers = ['ADMIN', 'MANAGER'].includes(currentUser.role)
 
@@ -157,7 +156,6 @@ export default class UserController {
         })
       }
 
-      // Usuários comuns só podem alterar seus próprios dados básicos
       if (isOwnProfile && !canManageUsers) {
         if (data.role) {
           return response.status(403).json({
@@ -166,14 +164,12 @@ export default class UserController {
         }
       }
 
-      // Managers não podem alterar roles para ADMIN ou MANAGER
       if (currentUser.role === 'MANAGER' && data.role && ['ADMIN', 'MANAGER'].includes(data.role)) {
         return response.status(403).json({
           error: 'Managers não podem definir roles ADMIN ou MANAGER',
         })
       }
 
-      // Atualizar dados
       if (data.fullName) user.fullName = data.fullName
       if (data.email) user.email = data.email
       if (data.password) user.password = await hash.make(data.password)
@@ -214,7 +210,6 @@ export default class UserController {
       const { id } = await userParamsValidator.validate(params)
       const currentUser = auth.getUserOrFail()
 
-      // Apenas ADMIN pode deletar usuários
       if (currentUser.role !== 'ADMIN') {
         return response.status(403).json({
           error: 'Apenas administradores podem deletar usuários',
@@ -228,7 +223,6 @@ export default class UserController {
         })
       }
 
-      // Não permitir que o admin delete a si mesmo
       if (currentUser.id === user.id) {
         return response.status(400).json({
           error: 'Você não pode deletar sua própria conta',

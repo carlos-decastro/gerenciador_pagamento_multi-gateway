@@ -28,7 +28,6 @@ export default class GatewayService {
    * Processa um pagamento tentando os gateways em ordem de prioridade
    */
   static async processPayment(paymentData: PaymentData): Promise<PaymentResult> {
-    // Buscar gateways ativos ordenados por prioridade (menor prioridade = maior precedência)
     const gateways = await Gateway.query().where('is_active', true).orderBy('priority', 'asc')
 
     if (gateways.length === 0) {
@@ -37,11 +36,8 @@ export default class GatewayService {
 
     const attempts: PaymentResult['attempts'] = []
 
-    // Tentar cada gateway em ordem de prioridade
     for (const gateway of gateways) {
       try {
-        console.log(`Tentando pagamento no ${gateway.name} (prioridade ${gateway.priority})...`)
-
         const result = await this.callGateway(gateway, paymentData)
 
         attempts.push({
@@ -50,7 +46,6 @@ export default class GatewayService {
           success: true,
         })
 
-        // Se o pagamento foi bem-sucedido, retornar imediatamente
         return {
           success: true,
           gatewayId: gateway.id,
@@ -59,8 +54,6 @@ export default class GatewayService {
           attempts,
         }
       } catch (error) {
-        console.log(`Erro no ${gateway.name}:`, error.message)
-
         attempts.push({
           gatewayId: gateway.id,
           gatewayName: gateway.name,
@@ -68,12 +61,10 @@ export default class GatewayService {
           error: error.message,
         })
 
-        // Continuar para o próximo gateway
         continue
       }
     }
 
-    // Se chegou aqui, todos os gateways falharam
     return {
       success: false,
       gatewayId: '',
@@ -104,7 +95,6 @@ export default class GatewayService {
    */
   private static async callGateway1(paymentData: PaymentData): Promise<{ externalId: string }> {
     try {
-      // Primeiro fazer login para obter o token
       const loginResponse = await axios.post('http://localhost:3001/login', {
         email: 'dev@betalent.tech',
         token: 'FEC9BB078BF338F464F96B48089EB498',
@@ -112,11 +102,10 @@ export default class GatewayService {
 
       const token = loginResponse.data.token
 
-      // Criar a transação
       const transactionResponse = await axios.post(
         'http://localhost:3001/transactions',
         {
-          amount: Math.round(paymentData.amount * 100), // Converter para centavos
+          amount: Math.round(paymentData.amount * 100),
           name: paymentData.name,
           email: paymentData.email,
           cardNumber: paymentData.cardNumber,
@@ -151,7 +140,7 @@ export default class GatewayService {
       const response = await axios.post(
         'http://localhost:3002/transacoes',
         {
-          valor: Math.round(paymentData.amount * 100), // Converter para centavos
+          valor: Math.round(paymentData.amount * 100),
           nome: paymentData.name,
           email: paymentData.email,
           numeroCartao: paymentData.cardNumber,

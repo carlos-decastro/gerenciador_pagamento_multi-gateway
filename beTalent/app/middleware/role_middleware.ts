@@ -16,15 +16,12 @@ export default class RoleMiddleware {
     const { auth, response } = ctx
 
     try {
-      // Verificar se o usuário está autenticado
       const user = auth.getUserOrFail()
 
-      // Se não foram especificadas roles, apenas verificar autenticação
       if (!options.roles || options.roles.length === 0) {
         return next()
       }
 
-      // Verificar se o usuário tem uma das roles permitidas
       if (!options.roles.includes(user.role)) {
         return response.status(403).json({
           error: 'Acesso negado. Você não tem permissão para acessar este recurso.',

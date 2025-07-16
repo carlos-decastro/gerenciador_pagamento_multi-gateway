@@ -5,7 +5,6 @@ export default class extends BaseSchema {
   protected tableName = 'users'
 
   async up() {
-    // Inserir usuário admin padrão
     const hashedPassword = await hash.make('admin123')
 
     await this.db.table(this.tableName).insert({
@@ -19,7 +18,6 @@ export default class extends BaseSchema {
   }
 
   async down() {
-    // Remover usuário admin
     await this.db.from(this.tableName).where('email', 'admin@betalent.com').delete()
   }
 }

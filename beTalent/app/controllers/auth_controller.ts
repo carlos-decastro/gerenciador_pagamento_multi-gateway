@@ -10,10 +10,8 @@ export default class AuthController {
    */
   async login({ request, response }: HttpContext) {
     try {
-      // Validar dados de entrada usando o validator nativo do AdonisJS
       const { email, password } = await request.validateUsing(loginValidator)
 
-      // Buscar usuário pelo email
       const user = await User.findBy('email', email)
 
       if (!user) {
@@ -22,7 +20,6 @@ export default class AuthController {
         })
       }
 
-      // Verificar senha
       const isPasswordValid = await hash.verify(user.password, password)
 
       if (!isPasswordValid) {
@@ -31,7 +28,6 @@ export default class AuthController {
         })
       }
 
-      // Gerar token de acesso com nome descritivo
       const token = await User.accessTokens.create(user, ['*'], {
         name: `${user.email} - Login Session`,
         expiresIn: env.get('TOKEN_EXPIRATION_TIME'),
@@ -50,7 +46,6 @@ export default class AuthController {
         },
       })
     } catch (error) {
-      // Tratar erros de validação
       if (error.code === 'E_VALIDATION_ERROR') {
         return response.status(422).json({
           error: 'Dados inválidos',

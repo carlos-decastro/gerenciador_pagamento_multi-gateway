@@ -12,7 +12,6 @@ export default class ClientController {
     try {
       const { id } = await clientParamsValidator.validate(params)
 
-      // Buscar cliente
       const client = await Client.find(id)
 
       if (!client) {
@@ -21,14 +20,12 @@ export default class ClientController {
         })
       }
 
-      // Buscar todas as transações do cliente
       const transactions = await Transaction.query()
         .where('clientId', client.id)
         .preload('gateway')
         .preload('products')
         .orderBy('createdAt', 'desc')
 
-      // Calcular estatísticas do cliente
       const totalPurchases = transactions.length
       const totalAmount = transactions.reduce((sum, transaction) => {
         return sum + Number.parseFloat(transaction.amount.toString())
@@ -103,7 +100,6 @@ export default class ClientController {
         .select('id', 'name', 'email', 'createdAt', 'updatedAt')
         .paginate(page, limit)
 
-      // Para cada cliente, buscar estatísticas básicas
       const clientsWithStats = await Promise.all(
         clients.map(async (client) => {
           const transactionCount = await Transaction.query()

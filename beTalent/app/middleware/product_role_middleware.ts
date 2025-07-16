@@ -14,7 +14,6 @@ export default class ProductRoleMiddleware {
       action?: 'read' | 'write' | 'delete'
     } = {}
   ) {
-    // Verificar se o usuário está autenticado
     if (!ctx.auth.user) {
       return ctx.response.status(401).json({
         error: 'Usuário não autenticado',
@@ -24,12 +23,10 @@ export default class ProductRoleMiddleware {
     const user = ctx.auth.user
     const { roles, action = 'read' } = options
 
-    // Se não foram especificadas roles, permitir acesso (apenas autenticado)
     if (!roles || roles.length === 0) {
       return next()
     }
 
-    // Verificar se o usuário tem uma das roles permitidas
     if (!roles.includes(user.role)) {
       return ctx.response.status(403).json({
         error: 'Acesso negado',
